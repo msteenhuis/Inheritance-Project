@@ -1,0 +1,118 @@
+Design Document
+
+
+
+Runner Class:
+
+Allows users to access the project by providing an interface:
+-(1) Install hard drives
+// HardDrive subclass
+-(2) List drives
+// HardDrive subclass
+-(3) Create physical volumes
+// PhysicalVolume subclass
+-(4) List physical volumes
+// PhysicalVolume subclass
+-(5) Create and extend volume groups
+// VolumeGroup subclass
+-(6) List volume groups
+ // VolumeGroup subclass
+-(7) Create and extend logical volumes
+// LogicalVolume subclass
+-(8) List logical volumes
+// LogicalVolume subclass
+-(exit) Save and exit
+by entering each command's respective code.
+
+
+
+LocalVolumeManager superclass:
+/Requirements:
+
+private String name;
+private int size;
+private String uuid;
+
+public LocalVolumeManager(String n, int s)
+// Constructs a LocalVolumeManager superclass, containing information for subclasses HardDrive,
+   PhysicalVolume, VolumeGroup, and LogicalVolume subclasses. This includes the objects name n, size s, and uuid u.
+
+public String getName()
+// Returns the name of the object.
+
+public String getSize()
+// Returns the drive size of the object.
+
+public String getUuid()
+// Returns the uuid of the object.
+
+public String toString()
+// Returns list of needed system of the LVM
+
+public void Interface()
+//Gives user a series of options to chose from, as seen in the Runner Class
+
+
+HardDrive subclass:
+/Requirements: Needs a name and size in int form.
+
+public HardDrive(String n, int s, String u)
+// Uses command super(n, s, u) from PhysicalVolume to receive necessary data from the superclass.
+
+
+
+PhysicalVolume subclass:
+/Requirements: Needs a name and Hard Drive. It's size will be paired to its respective drive.
+
+private HardDrive drive;
+private String uuid;
+
+public PhysicalVolume(String n, String u, HardDrive h)
+// Uses command super(n) from receive necessary data from the superclass. Additionally sets
+object h to drive.
+
+public boolean hdSet( HardDrive d)
+// Checks to see if a the user input is associated with a HardDrive. The method will then check to see if there
+is a HardDrive already installed in the Physical Volume or even exists.
+
+
+
+VolumeGroup subclass:
+/Requirements: Must have
+
+private String uuid;
+private ArrayList<PhysicalVolume> pvStore = new ArrayList();
+private ArrayList<LogicalVolume> lvStore = new ArrayList();
+
+private VolumeGroup(String n, String u, PhysicalVolume p)
+// Uses command super(n) from receive necessary data from the superclass.
+
+public boolean phSet(PhysicalVolume p)
+// Checks to see if a user input is associated to a Physical Drive. The method will check to see if there
+   is a HardDrive already installed in the Physical Volume or even exists. If true, the PhysicalVolume will be added
+   to the pvStore ArrayList.
+
+public boolean lvSet(LogicalVolume l)
+// Checks to see if a user input is associated to a Logical Volume. The method will check to see if there
+   is a HardDrive already installed in the Logical Volume or even exists. If true, the LogicalVolume will be added
+   to the pvStore ArrayList.
+
+
+
+LogicalVolume subclass:
+/Requirements: The size of the Logical Volume must be able to fit into its Volume Group.
+
+private String uuid;
+private VolumeGroup vol;
+
+private LogicalVolume(String n, int s, String u, VolumeGroup v)
+// Uses command super(n, s) from receive necessary data from the superclass.
+
+public boolean vgSet(VolumeGroup v)
+// Checks to see if a user input is associated to a Volume Group. The method will check to see if if there is
+   enough memory to store the Logical Volume into the Volume Group, or if the Volume Group even exists.
+
+
+
+
+
