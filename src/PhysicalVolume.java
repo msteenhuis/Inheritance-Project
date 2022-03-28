@@ -17,25 +17,33 @@ public class PhysicalVolume extends LocalVolumeManager{
         return drive;
     }
 
-    public void hdSet(String d)
+    public void setDrive(String e)
     {
-        for(int i = 0; i < hdArr.size(); i++)
+        for (HardDrive v : hdArr)
         {
-            if (hdArr.get(i).getName().equals(d))
+            if (v.getName().equals(e))
             {
-                for (int j = 0; j < pvArr.size(); j++)
-                {
-                    if(pvArr.get(j).getName().equals(d))
-                    {
+                drive = v;
+            }
+        }
+    }
+
+    public boolean hdCheck(String d)
+    {
+        boolean output = true;
+        for(int i = 0; i < hdArr.size(); i++) {
+            if (hdArr.get(i).getName().equals(d)) {
+                for (int j = 0; j < pvArr.size(); j++) {
+                    if (pvArr.get(j).getDrive().getName().equals(d)) {
+                        output = false;
                         System.out.println("Error: Hard Drive already set to Physical Drive.");
                         break;
-                    }
-                    pvArr.add(pvArr.get(j));
+                    }   //pvArr.add(pvArr.get(j));
                 }
             }
         }
-
-        System.out.println(d + " is now attached to Physical Volume: " + super.getName());
+        return output;
+        //System.out.println(d + " is now attached to Physical Volume: " + super.getName());
     }
 
 }

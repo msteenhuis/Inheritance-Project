@@ -50,63 +50,70 @@ public class LocalVolumeManager {
     }
 // Returns the uuid of the object.
 
+    public void save()
+    {
+        //save work on file
+    }
     public void Interface(Scanner v)
     {
-        Scanner input = new Scanner(System.in);
-        if (v.equals("1"))
-        {
-            System.out.println("Input the name of your Hard Drive: ");
-            String n = input.next();
-            System.out.println("Input the size of your Hard Drive in GB: ");
-            int s = input.nextInt();
-            HardDrive tempHD = new HardDrive(n, s);
-            hdArr.add(tempHD);
-        }
-        if (v.equals("2"))
-        {
-
-        }
-        if (v.equals("3"))
-        {
-            System.out.println("Input the name of your Physical Volume: ");
-            String n = input.next();
-            String u = UUID.randomUUID() + "";
-            System.out.println("Enter the name of the Hard Drive you would like to set to the Physical Volume. Below is a list of installed Hard Drives: ");
-            for (HardDrive v : hdArr)
-            {
-                System.out.print("\\u001B[36m" + "");
-                System.out.print(v + ", ");
-                System.out.print("\u001b[0m");
+        while(!v.equals("exit")) {
+            Scanner input = new Scanner(System.in);
+            if (v.equals("1")) {
+                System.out.println("Input the name of your Hard Drive: ");
+                String n = input.next();
+                System.out.println("Input the size of your Hard Drive in GB: ");
+                int s = input.nextInt();
+                HardDrive tempHD = new HardDrive(n, s);
+                hdArr.add(tempHD);
             }
-            String h = input.next();
-            hdSet
-            PhysicalVolume( n, u, h);
-            hdArr.add(tempHD);
-        }
-        if (v.equals("4"))
-        {
+            if (v.equals("2")) {
 
-        }
-        if (v.equals("5"))
-        {
+            }
+            if (v.equals("3")) {
+                HardDrive h = null;
+                System.out.println("Input the name of your Physical Volume: ");
+                String n = input.next();
+                String u = UUID.randomUUID() + "";
+                PhysicalVolume temp = new PhysicalVolume(n, u, h);
+                System.out.println("Enter the name of the Hard Drive you would like to set to the Physical Volume. Below is a list of installed Hard Drives: ");
+                System.out.print("\u001B31;1m");
+                for (HardDrive val : hdArr) {
+                    System.out.print(val + ", ");
+                }
+                System.out.print("\u001b[0m");
+                String e = input.next();
+                boolean output = temp.hdCheck(e);
+                while (output == false) {
+                    System.out.println("Please re-enter the name of the Hard Drive: ");
+                    String f = input.next();
+                    output = temp.hdCheck(e);
+                }
+                temp.setDrive(e);
+                pvArr.add(temp);
+            }
+            if (v.equals("4")) {
 
-        }
-        if (v.equals("6"))
-        {
+            }
+            if (v.equals("5")) {
 
-        }
-        if (v.equals("7"))
-        {
+            }
+            if (v.equals("6")) {
 
-        }
-        if (v.equals("8"))
-        {
+            }
+            if (v.equals("7")) {
 
-        }
-        if (v.equals("exit"))
-        {
+            }
+            if (v.equals("8")) {
 
+            }
+            if (v.equals("exit"))
+            {
+                this.save();
+            }
+            break;
         }
+
+
     }
 //Gives user a series of options to chose from, as seen in the Runner Class
 
