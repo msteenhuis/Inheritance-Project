@@ -2,7 +2,7 @@ public class LogicalVolume extends LocalVolumeManager{
 
     private VolumeGroup vol;
 
-    private LogicalVolume(String n, int s, String u, VolumeGroup v)
+    public LogicalVolume(String n, int s, String u, VolumeGroup v)
     {
         super(n, s, u);
         this.vol = v;
@@ -13,7 +13,38 @@ public class LogicalVolume extends LocalVolumeManager{
         lvArr.add(l);
     }
 
-    public boolean vgSet(VolumeGroup v)
+    public VolumeGroup getVol()
     {
+        return vol;
+    }
+
+    public void setVol(String val)
+    {
+        for (VolumeGroup v : vgArr)
+        {
+            if (v.getName().equals(val))
+            {
+                vol = v;
+            }
+        }
+    }
+
+    public boolean vgCheck(String v)
+    {
+        boolean output = false;
+        for (VolumeGroup val : vgArr)
+        {
+            if (val.getName().equals(v)) //VolumeGroup must exist
+            {
+                if(val.getName().indexOf(val.getLvStore()) == -1)   //VolumeGroup must not have duplicate LogicalVolume
+                {
+                    if (val.getStorage() > 0)
+                    {
+                        output = true;
+                    }
+                }
+            }
+        }
+        return output;
     }
 }
